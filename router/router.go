@@ -1,25 +1,16 @@
 package router
 
 import (
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 	"urlshortener/controller"
 )
 
 
-type Router struct {
-	* mux.Router
-}
+func Get() * gin.Engine  {
+	r := gin.Default()
 
-
-func Get() *Router {
-	router := mux.NewRouter()
-	return &Router{router}
-}
-
-func Load( r * Router)  {
-
-	v := r.Router.PathPrefix("/api/v1").Subrouter()
-
-	v.HandleFunc("/links" , controller.CreateLink).Methods("POST")
-	v.HandleFunc("/links/{id}" , controller.GetLink).Methods("GET")
+	v := r.Group("/api/v1")
+	v.POST("/links" , controller.CreateLink)
+	v.GET("/links/:id" , controller.GetLink)
+	return r
 }

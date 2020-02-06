@@ -1,11 +1,9 @@
 package controller
 
 import (
-	"encoding/json"
-	"net/http"
+	"github.com/gin-gonic/gin"
 )
 
-func GetLink (w http.ResponseWriter , r * http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	_ = json.NewEncoder(w).Encode("Get link")
+func GetLink (c * gin.Context) {
+	c.JSON(200, gin.H{"message" : "Get link"})
 }
