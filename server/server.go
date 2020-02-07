@@ -2,15 +2,17 @@ package server
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
-	"net/http"
+	"github.com/gin-gonic/gin"
+	"log"
 	"os"
 )
 
 
-func New (router * mux.Router) *http.Server {
-	return &http.Server{
-		Handler: router,
-		Addr: fmt.Sprintf("%s:%s" , os.Getenv("SERVER_ADDR"), os.Getenv("SERVER_PORT") ),
-	}
+func Run (router *gin.Engine) {
+	log.Fatal(router.Run(GetAddr()))
+}
+
+func GetAddr () string{
+	addr := fmt.Sprintf("%s:%s" , os.Getenv("SERVER_ADDR"), os.Getenv("SERVER_PORT"))
+	return addr
 }
