@@ -44,12 +44,14 @@ func GetURI() string {
 	return fmt.Sprintf("mongodb://%s:%s" , os.Getenv("DB_HOST") , os.Getenv("DB_PORT"))
 }
 
-/* Approach to considered
-func GetInstance () * Database {
-	once.Do(func() {
-		db = GetConnection()
-	})
+// Approach to be considered.
+// I need to check if the following approach like a "singleton" is a good choice.
 
-	return db
-}
-*/
+// func GetInstance () * Database {
+//	once.Do(func() {
+//		db = GetConnection()
+//	})
+//
+//	return db
+//}
+

@@ -1,6 +1,7 @@
 package model
 
-// Url Model
+
+// Model Url
 
 type Url struct {
 	Original string `json:"Original,omitempty"`
