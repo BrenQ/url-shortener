@@ -22,11 +22,11 @@ var once sync.Once
 // Store a mongo client
 
 type Database struct {
-	*mongo.Client
+	*mongo.Collection
 }
 
 // Get a connection database
-func GetConnection() *Database {
+func NewConnection() *Database {
 	ctx, _ := context.WithTimeout(context.Background(), 10 * time.Second)
 	opts := options.Client().ApplyURI(GetURI())
 
@@ -36,7 +36,9 @@ func GetConnection() *Database {
 		 log.Fatal("Can´t connect with database" , err)
 	}
 
-	return &Database{sess}
+	db := sess.Database("url").Collection("link")
+
+	return &Database{db}
 }
 
 // Parse URI for mongo connection

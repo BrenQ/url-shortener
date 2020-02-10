@@ -1,30 +1,23 @@
 package main
 
 import (
-	"context"
-	"urlshortener/model"
+	"github.com/joho/godotenv"
 	r "urlshortener/router"
 	s "urlshortener/server"
-	"github.com/joho/godotenv"
-	"log"
-	db "urlshortener/database"
 )
 
 func main(){
 	// Load .env variables
 	_ = godotenv.Load()
 
-	dna := model.Url{Original: "google.com" , Short: "938x73i"}
+	// dna := model.Url{Original: "google.com" , Short: "938x73i"}
 
 	// Test database connection
 	// it does not belong part of the original code
-	_ , err :=  db.GetConnection().Database("url").Collection("link").InsertOne(context.Background(),dna)
-
-	if err != nil {
-		log.Println(500, err)
-	}
+	//_ , err :=  db.NewConnection().Database("url").Collection("link").InsertOne(context.Background(),dna)
 	// Set endpoints with a router
-	router := r.Get()
+	newRouter := r.New()
+	r := newRouter.Get()
 	//Server run
-	s.Run(router)
+	s.Run(r)
 }
