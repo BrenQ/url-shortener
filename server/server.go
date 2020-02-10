@@ -13,7 +13,7 @@ func Run (router *gin.Engine) {
 }
 
 // Address server
-func GetAddr () string{
+func GetAddr () string {
 	addr := fmt.Sprintf("%s:%s" , os.Getenv("SERVER_ADDR"), os.Getenv("SERVER_PORT"))
 	return addr
 }
