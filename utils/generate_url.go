@@ -1,5 +1,9 @@
 package utils
 
 func GenerateShortUrl() string {
-	return "9xdAJ1"
+	return "9xdAM1"
+}
+
+func GetUrl() {
+
 }
