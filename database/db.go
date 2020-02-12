@@ -1,6 +1,9 @@
 package database
 
-import "sync"
+import (
+	"go.mongodb.org/mongo-driver/x/bsonx"
+	"sync"
+)
 
 import (
 	"context"
@@ -23,6 +26,21 @@ var once sync.Once
 
 type Database struct {
 	*mongo.Collection
+}
+
+// Initial config for db
+func Init() {
+	db := NewConnection()
+
+	_, err := db.Indexes().CreateOne(context.Background(),
+		mongo.IndexModel{
+			Keys   : bsonx.Doc{{"short", bsonx.String("text")}},
+			Options: options.Index().SetUnique(true),
+		},)
+
+	if err != nil {
+		log.Fatal("Index fail", err.Error())
+	}
 }
 
 // Get a connection database

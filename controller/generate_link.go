@@ -16,9 +16,9 @@ func (l LinkController) CreateLink(c * gin.Context) {
 		return
 	}
 	// Get a code to build a short url
-	shortUrl := utils.GenerateShortUrl()
+	shortUrl, _ := utils.GenerateShortUrl()
 	// Store an url
-	err := l.LinkService.Create(model.Url{
+	_,err := l.LinkService.Create(model.Url{
 		Original:  link.Url,
 		Short:     shortUrl,
 	})
