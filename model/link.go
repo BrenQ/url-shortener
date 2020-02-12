@@ -9,9 +9,9 @@ type Url struct {
 
 // Struct aux for store request
 type UrlRequest struct {
-	Url string `json:"url,omitempty" binding:"required"`
+	Url string `json:"url" binding:"required"`
 }
 // Struct with code request
 type CodeRequest struct {
-	Code string `uri:"code,omitempty" binding:"required"`
+	Code string `uri:"code" binding:"required"`
 }
