@@ -11,3 +11,7 @@ type Url struct {
 type UrlRequest struct {
 	Url string `json:"url,omitempty" binding:"required"`
 }
+// Struct with code request
+type CodeRequest struct {
+	Code string `uri:"code,omitempty" binding:"required"`
+}

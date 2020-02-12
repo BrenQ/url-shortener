@@ -20,12 +20,13 @@ func New () Router {
 
 func ( router * Router) Get() * gin.Engine  {
 	r := gin.Default()
+
 	// Group routes with prefix
-	v := r.Group("/api/v1")
+	//v := r.Group("/api/v1")
 
 	// Create a shortened url
-	v.POST("/links" , router.LinkController.CreateLink)
+	r.POST("/links" , router.LinkController.CreateLink)
 	// Get by shortened url and redirect to the original
-	v.GET("/links/:id" , router.LinkController.GetLink)
+	r.GET("/:code" , router.LinkController.GetLink)
 	return r
 }
