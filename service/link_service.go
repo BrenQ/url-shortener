@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"errors"
+	"go.mongodb.org/mongo-driver/mongo"
 	"urlshortener/database"
 	"urlshortener/model"
 	"urlshortener/repository"
@@ -10,7 +10,7 @@ import (
 
 // Link interface
 type LinkServiceInterface interface {
-	Create(url model.Url) error
+	Create(url model.Url) (*mongo.InsertOneResult,error)
 	Get(url string) (*model.Url, error)
 }
 
@@ -25,20 +25,11 @@ func NewLinkService() LinkServiceInterface {
 		Db : database.NewConnection(),
 	}
 }
-
-func (l LinkService) Create(url model.Url ) error {
-	// Check if exist a short url with same code
-	 _, res := l.LinkRepository.FindByShortUrl(url.Short)
-
-	if res == nil {
-		return errors.New("url already exists")
-	}
-	// Insert data from url struct
-	_, err := l.Db.InsertOne(context.Background(), url)
-
-	return err
+// Insert url data
+func (l LinkService) Create(url model.Url ) (*mongo.InsertOneResult,error) {
+	return l.Db.InsertOne(context.Background(), url)
 }
-
+// Get a url data by short code
 func (l LinkService ) Get(code string) (*model.Url , error) {
 	return l.LinkRepository.FindByShortUrl(code)
 }
