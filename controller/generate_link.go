@@ -18,6 +18,7 @@ func (l LinkController) CreateLink(c * gin.Context) {
 	// Validate an url
 	if  ! utils.ValidUrl(link.Url)  {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Url invalid"})
+		return
 	}
 
 	// Get a code to build a short url
