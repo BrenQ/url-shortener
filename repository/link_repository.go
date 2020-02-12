@@ -9,7 +9,7 @@ import (
 
 // Repository interface
 type LinkRepositoryInterface interface {
-	FindByShortUrl(url string) *model.Url
+	FindByShortUrl(url string) (*model.Url, error)
 }
 
 type LinkRepository struct {
@@ -22,13 +22,17 @@ func NewLinkRepository() LinkRepositoryInterface  {
 	}
 }
 
-func (l LinkRepository ) FindByShortUrl(url string ) *model.Url {
+func (l LinkRepository ) FindByShortUrl(url string ) (*model.Url,error) {
 	var link model.Url
 
-	_ = l.Db.FindOne(context.Background(), bson.D{{"short", url}}).
+	err := l.Db.FindOne(context.Background(), bson.D{{"short", url}}).
 		Decode(&link)
 
-	return &link
+	if err != nil {
+		return nil , err
+	}
+
+	return &link , nil
 }
 
 
