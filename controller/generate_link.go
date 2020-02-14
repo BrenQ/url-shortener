@@ -12,12 +12,17 @@ func (l LinkController) CreateLink(c * gin.Context) {
 	var link model.UrlRequest
 
 	if err := c.ShouldBindJSON(&link) ; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Invalid request",
+			"err": err.Error(),
+		})
 		return
 	}
 	// Validate an url
 	if  ! utils.ValidUrl(link.Url)  {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Url invalid"})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Url invalid",
+		})
 		return
 	}
 
@@ -30,14 +35,17 @@ func (l LinkController) CreateLink(c * gin.Context) {
 	})
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest , gin.H{
-			"message" : "Bad request",
-			"err": err.Error(),
+		c.JSON(http.StatusUnprocessableEntity , gin.H{
+			"message" : "Unable to process request. Try Again",
 		})
 		return
 	}
 
+	fullUrl := c.Request.Host + "/" + shortUrl
+
 	c.JSON(http.StatusOK, gin.H{
-		"url" : utils.GetFullPath(c , shortUrl),
+		"link" : fullUrl,
+		"orig" : link.Url,
+		"short": shortUrl,
 	})
 }

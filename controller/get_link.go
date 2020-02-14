@@ -17,7 +17,8 @@ func (l LinkController) GetLink (c * gin.Context) {
 	res, err := l.LinkService.Get(link.Code)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest , gin.H{"message": "Code not registered"})
+		c.JSON(http.StatusNotFound , gin.H{"message": "Code not registered"})
+		return
 	}
 
 	 c.Redirect(301, res.Original)

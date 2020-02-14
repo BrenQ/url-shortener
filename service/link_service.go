@@ -8,6 +8,11 @@ import (
 	"urlshortener/repository"
 )
 
+
+//var (
+	//LinkServices LinkServiceInterface = &LinkService{}
+//)
+
 // Link interface
 type LinkServiceInterface interface {
 	Create(url model.Url) (*mongo.InsertOneResult,error)
