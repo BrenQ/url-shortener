@@ -19,7 +19,6 @@ import (
 var (
 	GetLinkService func(code string) (*model.Url , error)
 	CreateLinkService func(url model.Url) (*mongo.InsertOneResult, error)
-	FindByShortUrlRepo func(url string)(*model.Url,error)
 )
 
 
@@ -29,24 +28,11 @@ func NewLinkControllerMock () LinkControllerInterface {
 
 func NewLinkServiceMock ()  service.LinkServiceInterface {
 	return LinkServiceMock {
-		LinkRepository: NewLinkRepositoryMock(),
+		LinkRepository: repository.NewLinkRepository(),
 		Db:             database.NewConnection(),
 	}
 }
 
-func NewLinkRepositoryMock() repository.LinkRepositoryInterface {
-	return LinkRepositoryMock {
-		database.NewConnection(),
-	}
-}
-
-type LinkRepositoryMock struct {
-	Db * database.Database
-}
-
-func (l LinkRepositoryMock) FindByShortUrl(url string) (*model.Url, error){
-	return FindByShortUrlRepo(url)
-}
 
 // Mock Link service
 type LinkServiceMock struct {

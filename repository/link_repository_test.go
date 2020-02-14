@@ -5,9 +5,6 @@ import (
 	"testing"
 )
 
-type mockRepository struct {
-
-}
 
 func TestNewLinkRepository_CheckRepositoryInstance(t *testing.T) {
 	ass := assert.New(t)

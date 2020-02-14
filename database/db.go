@@ -16,9 +16,6 @@ import (
 	"time"
 )
 
-// Database connection
-var db *Database
-
 // Another approach
 var once sync.Once
 
@@ -29,7 +26,7 @@ type Database struct {
 }
 
 // Initial config for db
-func Init() {
+func Init() (*Database ,error) {
 	db := NewConnection()
 
 	_, err := db.Indexes().CreateOne(context.Background(),
@@ -40,7 +37,10 @@ func Init() {
 
 	if err != nil {
 		log.Fatal("Index fail", err.Error())
+		return nil,err
 	}
+
+	return db, nil
 }
 
 // Get a connection database
