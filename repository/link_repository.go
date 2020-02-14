@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 	"urlshortener/database"
 	"urlshortener/model"
 )
@@ -10,6 +11,7 @@ import (
 // Repository interface
 type LinkRepositoryInterface interface {
 	FindByShortUrl(url string) (*model.Url, error)
+	Save(url model.Url) (*mongo.InsertOneResult, error)
 }
 
 type LinkRepository struct {
@@ -33,6 +35,10 @@ func (l LinkRepository ) FindByShortUrl(url string ) (*model.Url,error) {
 	}
 
 	return &link , nil
+}
+
+func (l LinkRepository) Save(url model.Url) (*mongo.InsertOneResult, error) {
+	return l.Db.InsertOne(context.Background(), url)
 }
 
 

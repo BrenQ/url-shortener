@@ -11,10 +11,13 @@ func main(){
 	// Load .env variables
 	_ = godotenv.Load()
 	// Init database config
-	d.Init()
+	_, err := d.Init()
 
+	if err != nil {
+		panic(err)
+	}
+	// Routes
 	newRouter := r.New()
-	// Get an engine instance with routes
 	r := newRouter.Get()
 	//Server run
 	s.Run(r)

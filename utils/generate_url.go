@@ -1,9 +1,8 @@
 package utils
 
 import (
-	"net/url"
 	"math/rand"
-	"github.com/gin-gonic/gin"
+	"net/url"
 	"time"
 )
 
@@ -21,10 +20,6 @@ func GenerateShortUrl() (string, error) {
 	}
 
 	return string(r), nil
-}
-// Get a url full name
-func GetFullPath(c * gin.Context , code string)  string {
-	return c.Request.Host + "/" + code
 }
 
 // Validate an link

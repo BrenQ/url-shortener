@@ -1,12 +1,12 @@
 package service
 
 import (
-	"context"
 	"go.mongodb.org/mongo-driver/mongo"
 	"urlshortener/database"
 	"urlshortener/model"
 	"urlshortener/repository"
 )
+
 
 // Link interface
 type LinkServiceInterface interface {
@@ -27,7 +27,7 @@ func NewLinkService() LinkServiceInterface {
 }
 // Insert url data
 func (l LinkService) Create(url model.Url ) (*mongo.InsertOneResult,error) {
-	return l.Db.InsertOne(context.Background(), url)
+	return l.LinkRepository.Save(url)
 }
 // Get a url data by short code
 func (l LinkService ) Get(code string) (*model.Url , error) {
