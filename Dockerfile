@@ -1,10 +1,5 @@
 FROM golang:alpine as builder
 
-ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64
-
 # Install git.
 # Git is required for fetching the dependencies.
 RUN apk update && apk add --no-cache git
@@ -22,7 +17,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN go build -o -a
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o urlshortener .
 
 # Start a new stage from scratch
 FROM alpine:latest
@@ -35,7 +30,7 @@ COPY --from=builder /app/urlshortener .
 COPY --from=builder /app/.env .
 
 # Expose port 8080 to the outside world
-EXPOSE 8080
+EXPOSE 8000
 
 #Command to run the executable
 CMD ["./urlshortener"]
