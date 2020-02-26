@@ -3,6 +3,8 @@
     app:
       container_name: app
       build: .
+      environment:
+        - APP_ENV=development
       #restart: on-failure
       expose:
         - '8080'

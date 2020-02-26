@@ -1,4 +1,4 @@
 # Excluded files
-.env
+.env.local
 .idea
 urlshortener

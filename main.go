@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
+	c "urlshortener/config"
 	d "urlshortener/database"
 	r "urlshortener/router"
 	s "urlshortener/server"
@@ -9,8 +9,9 @@ import (
 
 func main(){
 	// Load .env variables
-	_ = godotenv.Load()
-	// Init database config
+	cfg := c.NewConfig()
+	cfg.Start()
+
 	_, err := d.Init()
 
 	if err != nil {

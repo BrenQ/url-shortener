@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
-	"os"
+	c "urlshortener/config"
 )
 
 // Run the server
@@ -14,6 +14,7 @@ func Run (router *gin.Engine) {
 
 // Address server
 func GetAddr () string {
-	addr := fmt.Sprintf("%s:%s" , os.Getenv("SERVER_ADDR"), os.Getenv("SERVER_PORT"))
+	var cfg  c.Config
+	addr := fmt.Sprintf("%s:%s" , cfg.Get("SERVER_ADDR"), cfg.Get("SERVER_PORT"))
 	return addr
 }

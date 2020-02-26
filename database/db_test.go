@@ -3,8 +3,8 @@ package database
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	"os"
 	"testing"
+	c "urlshortener/config"
 )
 
 func TestNewConnection_CheckDiffInstance(t *testing.T) {
@@ -22,7 +22,20 @@ func TestNewConnection_CheckDatabaseInstance(t *testing.T) {
 	ass.IsType(&Database{},conn)
 }
 
-func TestGetURI(t *testing.T) {
+func TestLocalGetURI(t *testing.T) {
 	ass := assert.New(t)
-	ass.Equal(fmt.Sprintf("mongodb://%s:%s" , os.Getenv("DB_HOST") , os.Getenv("DB_PORT")),GetURI())
+
+	cfg := c.Config{
+		Env:    "local",
+		Prefix: "../.env.",
+	}
+
+	cfg.Start()
+	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s" ,
+		cfg.Get("DB_USER"),
+		cfg.Get("DB_PASSWORD"),
+		cfg.Get("DB_HOST") ,
+		cfg.Get("DB_PORT"))
+
+	ass.Equal(uri,GetURI())
 }

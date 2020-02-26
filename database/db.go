@@ -1,17 +1,14 @@
 package database
 
 import (
-	"go.mongodb.org/mongo-driver/x/bsonx"
-	"sync"
-)
-
-import (
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/x/bsonx"
 	"log"
-	"os"
+	"sync"
+	c "urlshortener/config"
 	//"sync"
 	"time"
 )
@@ -61,11 +58,13 @@ func NewConnection() *Database {
 
 // Parse URI for mongo connection
 func GetURI() string {
+	var cfg c.Config
+
 	return fmt.Sprintf("mongodb://%s:%s@%s:%s" ,
-						os.Getenv("DB_USER"),
-						os.Getenv("DB_PASSWORD"),
-						os.Getenv("DB_HOST") ,
-						os.Getenv("DB_PORT"))
+						cfg.Get("DB_USER"),
+						cfg.Get("DB_PASSWORD"),
+						cfg.Get("DB_HOST") ,
+						cfg.Get("DB_PORT"))
 }
 
 // Approach to be considered.
