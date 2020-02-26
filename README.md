@@ -7,8 +7,7 @@ Funcionalidad
 
 * Un endpoint HTTP que reciba un URL como parámetro y la guarde asociada a un código de 6 caracteres 
 
-* Un endpoint HTTP que reciba un código (el generado en el paso anterior) y redirija al
-URL asociado
+* Un endpoint HTTP que reciba un código (el generado en el paso anterior) y redirija al URL asociado
 
 ## RUN 
 
@@ -17,27 +16,23 @@ URL asociado
 ** Requirements**
   - [Go 1.12](https://github.com/golang/go "Go 1.12")
   - [Mongo DB 4.2](https://github.com/mongodb/mongo "Mongo DB Last version")
-  
-  
+
+**Instructions**
+
  - Clone this project with
 	`git clone https://github.com/BrenQ/url-shortener.git`
 	
  - Add a .env.local file with the following variables:
 
-	
-	# env.local
-    DB_HOST=127.0.0.1
-    DB_USER=user
-    DB_PASSWORD=password
-    DB_PORT=27017
-    DB_TIMEOUT=5
-    DB_NAME=url
-    
-    # Server
-    SERVER_ADDR=127.0.0.1
-    SERVER_PORT=8080
-    
-    HOST=localhost
+	`DB_HOST=127.0.0.1`
+	`DB_USER=user`
+	`DB_PASSWORD=password`
+	`DB_PORT=27017`
+	`DB_TIMEOUT=5`
+	`DB_NAME=url`
+	`SERVER_ADDR=127.0.0.1`
+	`SERVER_PORT=8080`
+	`HOST=localhost`
 
  - In mongo, you must create credentials as described in the .env.local file ( DB_USER and DB_PASSWORD)
  - Finally , exec `go run main.go` and test in `127.0.0.1:8080`
